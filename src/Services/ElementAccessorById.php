@@ -5,16 +5,15 @@
  * @author     Flipbox Factory <hello@flipboxfactory.com>
  * @copyright  2010-2016 Flipbox Digital Limited
  * @license    https://github.com/FlipboxFactory/Craft3-Spark/blob/master/LICENSE
- * @version    Release: 1.1.0
  * @link       https://github.com/FlipboxFactory/Craft3-Spark
  * @since      Class available since Release 1.1.0
  */
 
 namespace Flipbox\Craft3\Spark\Services;
 
+use Flipbox\Craft3\Spark\Elements\Interfaces\ElementWithIdInterface;
 use Flipbox\Craft3\Spark\Helpers\ElementHelper;
 use Flipbox\Craft3\Spark\Models\Interfaces\ModelInterface;
-use Flipbox\Craft3\Spark\Elements\Interfaces\ElementWithIdInterface;
 use Flipbox\Craft3\Spark\Records\Interfaces\RecordWithIdInterface;
 
 abstract class ElementAccessorById extends ElementAccessor

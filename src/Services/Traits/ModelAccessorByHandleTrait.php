@@ -5,7 +5,6 @@
  * @author     Flipbox Factory <hello@flipboxfactory.com>
  * @copyright  2010-2016 Flipbox Digital Limited
  * @license    https://github.com/FlipboxFactory/Craft3-Spark/blob/master/LICENSE
- * @version    Release: 1.1.0
  * @link       https://github.com/FlipboxFactory/Craft3-Spark
  * @since      Class available since Release 1.0.0
  */
@@ -15,7 +14,6 @@ namespace Flipbox\Craft3\Spark\Services\Traits;
 use Flipbox\Craft3\Spark\Exceptions\ModelNotFoundException;
 use Flipbox\Craft3\Spark\Helpers\ModelHelper;
 use Flipbox\Craft3\Spark\Helpers\RecordHelper;
-use Flipbox\Craft3\Spark\Models\Interfaces\ModelInterface;
 use Flipbox\Craft3\Spark\Models\Interfaces\ModelWithHandleInterface;
 use Flipbox\Craft3\Spark\Records\Interfaces\RecordInterface;
 use Flipbox\Craft3\Spark\Records\Interfaces\RecordWithHandleInterface;

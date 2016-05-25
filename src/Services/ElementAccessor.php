@@ -5,7 +5,6 @@
  * @author     Flipbox Factory <hello@flipboxfactory.com>
  * @copyright  2010-2016 Flipbox Digital Limited
  * @license    https://github.com/FlipboxFactory/Craft3-Spark/blob/master/LICENSE
- * @version    Release: 1.1.0
  * @link       https://github.com/FlipboxFactory/Craft3-Spark
  * @since      Class available since Release 1.1.0
  */
@@ -13,12 +12,12 @@
 namespace Flipbox\Craft3\Spark\Services;
 
 use craft\app\elements\db\ElementQueryInterface;
+use Flipbox\Craft3\Spark\Elements\Interfaces\ElementInterface;
 use Flipbox\Craft3\Spark\Exceptions\InvalidElementException;
 use Flipbox\Craft3\Spark\Exceptions\InvalidRecordException;
 use Flipbox\Craft3\Spark\Helpers\ArrayHelper;
 use Flipbox\Craft3\Spark\Helpers\ElementHelper;
 use Flipbox\Craft3\Spark\Helpers\JsonHelper;
-use Flipbox\Craft3\Spark\Elements\Interfaces\ElementInterface;
 use Flipbox\Craft3\Spark\Records\Interfaces\RecordInterface;
 
 abstract class ElementAccessor extends RecordAccessor
@@ -176,7 +175,7 @@ abstract class ElementAccessor extends RecordAccessor
         /** @var ElementInterface[] $elements */
         $elements = $this->getQuery($criteria)->all();
 
-        if($scenario) {
+        if ($scenario) {
 
             $returnElements = [];
 
@@ -209,9 +208,9 @@ abstract class ElementAccessor extends RecordAccessor
     {
 
         /** @var ElementInterface $element */
-        if($element = $this->getQuery($criteria)->one()) {
+        if ($element = $this->getQuery($criteria)->one()) {
 
-            if($scenario) {
+            if ($scenario) {
 
                 // Set scenario
                 $element->setScenario($scenario);
