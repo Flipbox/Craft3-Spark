@@ -24,7 +24,7 @@ trait ModelAccessorByHandleTrait
 {
 
     /**
-     * @var array of all models indexed by Handle
+     * @var ModelWithHandleInterface[]
      */
     protected $_cacheByHandle = [];
 
@@ -42,7 +42,7 @@ trait ModelAccessorByHandleTrait
     /**
      * @param RecordInterface $record
      * @param string $scenario
-     * @return ModelInterface
+     * @return ModelWithHandleInterface|null
      */
     public abstract function findByRecord(RecordInterface $record, $scenario = ModelHelper::SCENARIO_SAVE);
 
@@ -87,7 +87,7 @@ trait ModelAccessorByHandleTrait
         // Find record in db
         if ($record = $this->findRecordByHandle($handle)) {
 
-            // New model
+            // Create
             return $this->create($record, $scenario);
 
         }
@@ -99,7 +99,7 @@ trait ModelAccessorByHandleTrait
     /**
      * @param $handle
      * @param string $scenario
-     * @return ModelWithHandleInterface|null
+     * @return ModelWithHandleInterface
      * @throws ModelNotFoundException
      */
     public function freshGetByHandle($handle, $scenario = ModelHelper::SCENARIO_SAVE)
@@ -128,7 +128,7 @@ trait ModelAccessorByHandleTrait
     public function findByHandle($handle, $scenario = ModelHelper::SCENARIO_SAVE)
     {
 
-        // Check addToCache
+        // Check cache
         if (!$model = $this->findCacheByHandle($handle)) {
 
             // Find record in db
@@ -181,7 +181,7 @@ trait ModelAccessorByHandleTrait
      *******************************************/
 
     /**
-     * Find an existing cached model by handle
+     * Find an existing cache by handle
      *
      * @param $handle
      * @return null
@@ -201,7 +201,7 @@ trait ModelAccessorByHandleTrait
     }
 
     /**
-     * Identify whether an model is cached by handle
+     * Identify whether in cache by handle
      *
      * @param $handle
      * @return bool
