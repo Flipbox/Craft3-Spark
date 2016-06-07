@@ -9,7 +9,7 @@
  * @since      Class available since Release 1.1.0
  */
 
-namespace flipbox\craft\spark\helpers;
+namespace Flipbox\Craft3\Spark\Helpers;
 
 use craft\app\models\FieldLayout;
 
