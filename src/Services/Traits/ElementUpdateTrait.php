@@ -11,8 +11,8 @@
 
 namespace Flipbox\Craft3\Spark\Services\Traits;
 
-use craft\app\events\Event as ElementEvent;
 use craft\app\base\ElementInterface as BaseElementInterface;
+use craft\app\events\Event as ElementEvent;
 use Flipbox\Craft3\Spark\Elements\Interfaces\ElementInterface;
 use Flipbox\Craft3\Spark\Exceptions\InsufficientPrivilegesException;
 use Flipbox\Craft3\Spark\Helpers\RecordHelper;

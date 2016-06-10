@@ -12,8 +12,8 @@
 namespace Flipbox\Craft3\Spark\Services;
 
 use craft\app\base\ElementInterface;
+use craft\app\db\ActiveRecord;
 use craft\app\elements\db\ElementQueryInterface;
-use craft\app\records\Element as ElementRecord;
 use Flipbox\Craft3\Spark\Exceptions\InvalidElementException;
 use Flipbox\Craft3\Spark\Exceptions\InvalidRecordException;
 use Flipbox\Craft3\Spark\Helpers\ArrayHelper;
@@ -33,7 +33,7 @@ abstract class ElementAccessor extends RecordAccessor
     /**
      * The record instance that this class interacts with
      */
-    const RECORD_CLASS_INSTANCE = 'craft\app\records\Element';
+    const RECORD_CLASS_INSTANCE = 'craft\app\db\ActiveRecord';
 
     /**
      * The element instance that this class interacts with
@@ -397,10 +397,10 @@ abstract class ElementAccessor extends RecordAccessor
 
     /**
      * @param ElementInterface $element
-     * @param ElementRecord $record
+     * @param ActiveRecord $record
      * @param bool $mirrorScenario
      */
-    public function transferToRecord(ElementInterface $element, ElementRecord $record, $mirrorScenario = true)
+    public function transferToRecord(ElementInterface $element, ActiveRecord $record, $mirrorScenario = true)
     {
 
         if ($mirrorScenario === true) {
@@ -418,7 +418,7 @@ abstract class ElementAccessor extends RecordAccessor
     /**
      * @param ElementInterface $element
      * @param bool $mirrorScenario
-     * @return ElementRecord|static
+     * @return ActiveRecord|static
      */
     public function toRecord(ElementInterface $element, $mirrorScenario = true)
     {

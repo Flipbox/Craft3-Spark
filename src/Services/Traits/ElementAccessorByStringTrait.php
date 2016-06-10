@@ -12,7 +12,7 @@
 namespace Flipbox\Craft3\Spark\Services\Traits;
 
 use craft\app\base\ElementInterface;
-use craft\app\records\Element as ElementRecord;
+use craft\app\db\ActiveRecord;
 use Flipbox\Craft3\Spark\Exceptions\ElementNotFoundException;
 use Flipbox\Craft3\Spark\Helpers\ElementHelper;
 use Flipbox\Craft3\Spark\Helpers\RecordHelper;
@@ -45,7 +45,7 @@ trait ElementAccessorByStringTrait
 
     /**
      * @param $string
-     * @return ElementRecord|null
+     * @return ActiveRecord|null
      */
     abstract protected function findRecordByString($string);
 
