@@ -11,7 +11,7 @@
 
 namespace Flipbox\Craft3\Spark\Helpers;
 
-use Flipbox\Craft3\Spark\Elements\Interfaces\ElementInterface;
+use craft\app\base\ElementInterface;
 use Flipbox\Craft3\Spark\Exceptions\InvalidConfigurationException;
 
 class ElementHelper

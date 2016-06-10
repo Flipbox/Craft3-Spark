@@ -12,7 +12,7 @@
 namespace Flipbox\Craft3\Spark\Services\Traits;
 
 use craft\app\events\Event as ElementEvent;
-use Flipbox\Craft3\Spark\Elements\Interfaces\ElementWithIdInterface;
+use Flipbox\Craft3\Spark\Elements\Interfaces\ElementInterface;
 use Flipbox\Craft3\Spark\Exceptions\InsufficientPrivilegesException;
 use Flipbox\Craft3\Spark\Helpers\ElementHelper;
 use Flipbox\Craft3\Spark\Helpers\RecordHelper;
@@ -42,7 +42,7 @@ trait ElementInsertTrait
     abstract public function createRecord($config = [], $scenario = RecordHelper::SCENARIO_SAVE);
 
     /**
-     * @param ElementWithIdInterface $element
+     * @param ElementInterface $element
      * @param null $attributes
      * @param null $contentAttributes
      * @param bool $mirrorScenario
@@ -51,7 +51,7 @@ trait ElementInsertTrait
      * @throws \Exception
      */
     abstract public function update(
-        ElementWithIdInterface $element,
+        ElementInterface $element,
         $attributes = null,
         $contentAttributes = null,
         $mirrorScenario = true
@@ -63,10 +63,10 @@ trait ElementInsertTrait
      *******************************************/
 
     /**
-     * @param ElementWithIdInterface $element
+     * @param ElementInterface $element
      * @return bool
      */
-    public function hasInsertPermission(ElementWithIdInterface $element)
+    public function hasInsertPermission(ElementInterface $element)
     {
         return true;
     }
@@ -97,7 +97,7 @@ trait ElementInsertTrait
      *******************************************/
 
     /**
-     * @param ElementWithIdInterface $element
+     * @param ElementInterface $element
      * @param null $attributes
      * @param null $contentAttributes
      * @param bool $mirrorScenario
@@ -106,7 +106,7 @@ trait ElementInsertTrait
      * @throws \Exception
      */
     public function insert(
-        ElementWithIdInterface $element,
+        ElementInterface $element,
         $attributes = null,
         $contentAttributes = null,
         $mirrorScenario = true
@@ -131,7 +131,7 @@ trait ElementInsertTrait
     }
 
     /**
-     * @param ElementWithIdInterface $element
+     * @param ElementInterface $element
      * @param null $attributes
      * @param null $contentAttributes
      * @param bool $mirrorScenario
@@ -140,7 +140,7 @@ trait ElementInsertTrait
      * @throws \yii\db\Exception
      */
     protected function insertInternal(
-        ElementWithIdInterface $element,
+        ElementInterface $element,
         $attributes = null,
         $contentAttributes = null,
         $mirrorScenario = true

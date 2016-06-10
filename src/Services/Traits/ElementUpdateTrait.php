@@ -13,7 +13,6 @@ namespace Flipbox\Craft3\Spark\Services\Traits;
 
 use craft\app\events\Event as ElementEvent;
 use Flipbox\Craft3\Spark\Elements\Interfaces\ElementInterface;
-use Flipbox\Craft3\Spark\Elements\Interfaces\ElementWithIdInterface;
 use Flipbox\Craft3\Spark\Exceptions\InsufficientPrivilegesException;
 use Flipbox\Craft3\Spark\Helpers\RecordHelper;
 use Flipbox\Craft3\Spark\Records\Interfaces\RecordWithIdInterface;
@@ -42,7 +41,7 @@ trait ElementUpdateTrait
     abstract public function toRecord(ElementInterface $element, $mirrorScenario = true);
 
     /**
-     * @param ElementWithIdInterface $element
+     * @param ElementInterface $element
      * @param null $attributes
      * @param null $contentAttributes
      * @param bool $mirrorScenario
@@ -51,7 +50,7 @@ trait ElementUpdateTrait
      * @throws \Exception
      */
     abstract public function insert(
-        ElementWithIdInterface $element,
+        ElementInterface $element,
         $attributes = null,
         $contentAttributes = null,
         $mirrorScenario = true
@@ -63,10 +62,10 @@ trait ElementUpdateTrait
      *******************************************/
 
     /**
-     * @param ElementWithIdInterface $element
+     * @param ElementInterface $element
      * @return bool
      */
-    public function hasUpdatePermission(ElementWithIdInterface $element)
+    public function hasUpdatePermission(ElementInterface $element)
     {
         return true;
     }
@@ -97,7 +96,7 @@ trait ElementUpdateTrait
      *******************************************/
 
     /**
-     * @param ElementWithIdInterface $element
+     * @param ElementInterface $element
      * @param null $attributes
      * @param null $contentAttributes
      * @param bool $mirrorScenario
@@ -106,7 +105,7 @@ trait ElementUpdateTrait
      * @throws \Exception
      */
     public function update(
-        ElementWithIdInterface $element,
+        ElementInterface $element,
         $attributes = null,
         $contentAttributes = null,
         $mirrorScenario = true
@@ -131,7 +130,7 @@ trait ElementUpdateTrait
     }
 
     /**
-     * @param ElementWithIdInterface $element
+     * @param ElementInterface $element
      * @param null $attributes
      * @param null $contentAttributes
      * @param bool $mirrorScenario
@@ -140,7 +139,7 @@ trait ElementUpdateTrait
      * @throws \yii\db\Exception
      */
     protected function updateInternal(
-        ElementWithIdInterface $element,
+        ElementInterface $element,
         $attributes = null,
         $contentAttributes = null,
         $mirrorScenario = true

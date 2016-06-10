@@ -11,7 +11,7 @@
 
 namespace Flipbox\Craft3\Spark\Services\Traits;
 
-use Flipbox\Craft3\Spark\Elements\Interfaces\ElementWithIdInterface;
+use Flipbox\Craft3\Spark\Elements\Interfaces\ElementInterface;
 use Flipbox\Craft3\Spark\Exceptions\InsufficientPrivilegesException;
 
 trait ElementSaveTrait
@@ -26,14 +26,15 @@ trait ElementSaveTrait
     /**
      * Save a new or existing element.
      *
-     * @param ElementWithIdInterface $element
+     * @param ElementInterface $element
      * @param null $attributes
+     * @param null $contentAttributes
      * @param bool $mirrorScenario
      * @return bool
      * @throws InsufficientPrivilegesException
      */
     public function save(
-        ElementWithIdInterface $element,
+        ElementInterface $element,
         $attributes = null,
         $contentAttributes = null,
         $mirrorScenario = true

@@ -12,7 +12,7 @@
 namespace Flipbox\Craft3\Spark\Services\Traits;
 
 use craft\app\events\Event as ElementEvent;
-use Flipbox\Craft3\Spark\Elements\Interfaces\ElementWithIdInterface;
+use Flipbox\Craft3\Spark\Elements\Interfaces\ElementInterface;
 use Flipbox\Craft3\Spark\Exceptions\InsufficientPrivilegesException;
 use Flipbox\Craft3\Spark\Helpers\RecordHelper;
 use Flipbox\Craft3\Spark\Records\Interfaces\RecordWithIdInterface;
@@ -45,10 +45,10 @@ trait ElementDeleteTrait
      *******************************************/
 
     /**
-     * @param ElementWithIdInterface $element
+     * @param ElementInterface $element
      * @return bool
      */
-    public function hasDeletePermission(ElementWithIdInterface $element)
+    public function hasDeletePermission(ElementInterface $element)
     {
         return true;
     }
@@ -80,12 +80,12 @@ trait ElementDeleteTrait
      *******************************************/
 
     /**
-     * @param ElementWithIdInterface $element
+     * @param ElementInterface $element
      * @return bool
      * @throws InsufficientPrivilegesException
      * @throws \Exception
      */
-    public function delete(ElementWithIdInterface $element)
+    public function delete(ElementInterface $element)
     {
 
         // Check permission
@@ -100,12 +100,12 @@ trait ElementDeleteTrait
     }
 
     /**
-     * @param ElementWithIdInterface $element
+     * @param ElementInterface $element
      * @return bool
      * @throws \Exception
      * @throws \yii\db\Exception
      */
-    protected function deleteInternal(ElementWithIdInterface $element)
+    protected function deleteInternal(ElementInterface $element)
     {
 
         // Db transaction

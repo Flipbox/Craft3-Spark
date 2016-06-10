@@ -6,7 +6,7 @@
  * @copyright  2010-2016 Flipbox Digital Limited
  * @license    https://github.com/FlipboxFactory/Craft3-Spark/blob/master/LICENSE
  * @link       https://github.com/FlipboxFactory/Craft3-Spark
- * @since      Class available since Release 1.1.0
+ * @since      Class available since Release 1.2.0
  */
 
 namespace Flipbox\Craft3\Spark\Services\Traits;
@@ -17,13 +17,13 @@ use Flipbox\Craft3\Spark\Exceptions\ElementNotFoundException;
 use Flipbox\Craft3\Spark\Helpers\ElementHelper;
 use Flipbox\Craft3\Spark\Helpers\RecordHelper;
 
-trait ElementAccessorByIdTrait
+trait ElementAccessorByStringTrait
 {
 
     /**
      * @var ElementInterface[]
      */
-    protected $_cacheById = [];
+    protected $_cacheByString = [];
 
     /*******************************************
      * ABSTRACTS
@@ -32,44 +32,52 @@ trait ElementAccessorByIdTrait
     /**
      * @param $condition
      * @param string $scenario
-     * @return ElementRecord|null
+     * @return ElementInterface|null
      */
     public abstract function findRecord($condition, $scenario = RecordHelper::SCENARIO_SAVE);
 
-
-    /*******************************************
-     * RECORD
-     *******************************************/
+    /**
+     * @param $criteria
+     * @param string $scenario
+     * @return ElementInterface
+     */
+    abstract public function getByQuery($criteria, $scenario = ElementHelper::SCENARIO_SAVE);
 
     /**
-     * @param $id
+     * @param $string
      * @return ElementRecord|null
      */
-    protected function findRecordById($id)
-    {
+    abstract protected function findRecordByString($string);
 
-        return $this->findRecord([
-            'id' => $id
-        ]);
+    /**
+     * @param $string
+     * @return ElementInterface|null
+     */
+    abstract protected function internalFreshFindByString($string);
 
-    }
+    /**
+     * @param ElementInterface $element
+     * @return ElementInterface|null
+     */
+    abstract protected function getStringValue(ElementInterface $element);
 
     /*******************************************
      * FRESH FIND
      *******************************************/
 
     /**
-     * @param $id
+     * @param $string
      * @param string $scenario
      * @return ElementInterface|null
      */
-    public function freshFindById($id, $scenario = ElementHelper::SCENARIO_SAVE)
+    public function freshFindByString($string, $scenario = ElementHelper::SCENARIO_SAVE)
     {
 
-        if ($element = \Craft::$app->getElements()->getElementById($id)) {
+        if ($element = $this->internalFreshFindByString($string)) {
 
             if ($scenario) {
 
+                // Set scenario
                 $element->setScenario($scenario);
 
             }
@@ -81,17 +89,17 @@ trait ElementAccessorByIdTrait
     }
 
     /**
-     * @param $id
+     * @param $string
      * @param string $scenario
      * @return ElementInterface
      * @throws ElementNotFoundException
      */
-    public function freshGetById($id, $scenario = ElementHelper::SCENARIO_SAVE)
+    public function freshGetByString($string, $scenario = ElementHelper::SCENARIO_SAVE)
     {
 
-        if (!$element = $this->freshFindById($id, $scenario)) {
+        if (!$element = $this->freshFindByString($string, $scenario)) {
 
-            $this->notFoundByIdException($id);
+            $this->notFoundByStringException($string);
 
         }
 
@@ -105,26 +113,26 @@ trait ElementAccessorByIdTrait
      *******************************************/
 
     /**
-     * @param $id
+     * @param $string
      * @param string $scenario
      * @return ElementInterface|null
      */
-    public function findById($id, $scenario = ElementHelper::SCENARIO_SAVE)
+    public function findByString($string, $scenario = ElementHelper::SCENARIO_SAVE)
     {
 
         // Check cache
-        if (!$element = $this->findCacheById($id)) {
+        if (!$element = $this->findCacheByString($string)) {
 
             // Find new element
-            if ($element = $this->freshFindById($id, $scenario)) {
+            if ($element = $this->freshFindByString($string, $scenario)) {
 
                 // Cache it
-                $this->cacheById($element);
+                $this->cacheByString($element);
 
             } else {
 
                 // Cache nothing
-                $this->_cacheById[$id] = $element;
+                $this->_cacheByString[$string] = $element;
 
             }
 
@@ -140,18 +148,18 @@ trait ElementAccessorByIdTrait
      *******************************************/
 
     /**
-     * @param $id
+     * @param $string
      * @param string $scenario
      * @return ElementInterface
      * @throws ElementNotFoundException
      */
-    public function getById($id, $scenario = ElementHelper::SCENARIO_SAVE)
+    public function getByString($string, $scenario = ElementHelper::SCENARIO_SAVE)
     {
 
-        // Find by ID
-        if (!$element = $this->findById($id, $scenario)) {
+        // Find by Handle
+        if (!$element = $this->findByString($string, $scenario)) {
 
-            $this->notFoundByIdException($id);
+            $this->notFoundByStringException($string);
 
         }
 
@@ -165,18 +173,18 @@ trait ElementAccessorByIdTrait
      *******************************************/
 
     /**
-     * Find an existing cache by ID
+     * Find an existing cache by Handle
      *
-     * @param $id
+     * @param $string
      * @return null
      */
-    public function findCacheById($id)
+    public function findCacheByString($string)
     {
 
-        // Check if already in addToCache
-        if ($this->isCachedById($id)) {
+        // Check if already in cache
+        if ($this->isCachedByString($string)) {
 
-            return $this->_cacheById[$id];
+            return $this->_cacheByString[$string];
 
         }
 
@@ -185,30 +193,30 @@ trait ElementAccessorByIdTrait
     }
 
     /**
-     * Identify whether in cached by ID
+     * Identify whether in cached by Handle
      *
-     * @param $id
+     * @param $string
      * @return bool
      */
-    protected function isCachedById($id)
+    protected function isCachedByString($string)
     {
-        return array_key_exists($id, $this->_cacheById);
+        return array_key_exists($string, $this->_cacheByString);
     }
 
     /**
      * @param ElementInterface $element
      * @return $this
      */
-    protected function cacheById(ElementInterface $element)
+    protected function cacheByString(ElementInterface $element)
     {
 
-        $id = $element->id;
+        $stringValue = $this->getStringValue($element);
 
         // Check if already in cache
-        if (!$this->isCachedById($id)) {
+        if ($stringValue && !$this->isCachedByString($stringValue)) {
 
             // Cache it
-            $this->_cacheById[$id] = $element;
+            $this->_cacheByString[$stringValue] = $element;
 
         }
 
@@ -221,16 +229,16 @@ trait ElementAccessorByIdTrait
      *******************************************/
 
     /**
-     * @param null $id
+     * @param null $string
      * @throws ElementNotFoundException
      */
-    protected function notFoundByIdException($id = null)
+    protected function notFoundByStringException($string = null)
     {
 
         throw new ElementNotFoundException(
             sprintf(
-                'Element does not exist with the id "%s".',
-                (string)$id
+                'Element does not exist with the string "%s".',
+                (string)$string
             )
         );
 

@@ -14,8 +14,25 @@ namespace Flipbox\Craft3\Spark\Elements;
 use craft\app\base\Element as BaseElement;
 use Flipbox\Craft3\Spark\Helpers\ElementHelper;
 
-abstract class Element extends BaseElement implements Interfaces\ElementInterface
+abstract class Element extends BaseElement implements Interfaces\ElementWithIdInterface
 {
+
+    use Traits\ElementWithIdTrait {
+        rules as _traitRules;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+
+        return array_merge(
+            parent::rules(),
+            $this->_traitRules()
+        );
+
+    }
 
     /**
      * @inheritdoc

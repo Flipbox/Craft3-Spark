@@ -11,17 +11,19 @@
 
 namespace Flipbox\Craft3\Spark\Services;
 
+use craft\app\base\ElementInterface;
 use craft\app\elements\db\ElementQueryInterface;
-use Flipbox\Craft3\Spark\Elements\Interfaces\ElementInterface;
+use craft\app\records\Element as ElementRecord;
 use Flipbox\Craft3\Spark\Exceptions\InvalidElementException;
 use Flipbox\Craft3\Spark\Exceptions\InvalidRecordException;
 use Flipbox\Craft3\Spark\Helpers\ArrayHelper;
 use Flipbox\Craft3\Spark\Helpers\ElementHelper;
 use Flipbox\Craft3\Spark\Helpers\JsonHelper;
-use Flipbox\Craft3\Spark\Records\Interfaces\RecordInterface;
 
 abstract class ElementAccessor extends RecordAccessor
 {
+
+    use Traits\ElementAccessorByIdTrait;
 
     /**
      * @var ElementInterface[] indexed by Id
@@ -29,9 +31,14 @@ abstract class ElementAccessor extends RecordAccessor
     protected $_cacheAll;
 
     /**
+     * The record instance that this class interacts with
+     */
+    const RECORD_CLASS_INSTANCE = 'craft\app\records\Element';
+
+    /**
      * The element instance that this class interacts with
      */
-    const ELEMENT_CLASS_INSTANCE = 'Flipbox\Craft3\Spark\Elements\Interfaces\ElementInterface';
+    const ELEMENT_CLASS_INSTANCE = 'craft\app\base\ElementInterface';
 
     /**
      * The default scenario
@@ -52,7 +59,7 @@ abstract class ElementAccessor extends RecordAccessor
 
         parent::init();
 
-        // todo - support multiple instances
+        // Validate element class
         if (!is_subclass_of($this->element, static::ELEMENT_CLASS_INSTANCE)) {
 
             throw new InvalidElementException(
@@ -153,9 +160,13 @@ abstract class ElementAccessor extends RecordAccessor
 
             return $identifier;
 
+        } elseif (is_numeric($identifier)) {
+
+            return $this->findById($identifier, $scenario);
+
         } elseif (is_array($identifier)) {
 
-            return $this->findByQuery($identifier);
+            return $this->findByQuery($identifier, $scenario);
 
         }
 
@@ -386,10 +397,10 @@ abstract class ElementAccessor extends RecordAccessor
 
     /**
      * @param ElementInterface $element
-     * @param RecordInterface $record
+     * @param ElementRecord $record
      * @param bool $mirrorScenario
      */
-    public function transferToRecord(ElementInterface $element, RecordInterface $record, $mirrorScenario = true)
+    public function transferToRecord(ElementInterface $element, ElementRecord $record, $mirrorScenario = true)
     {
 
         if ($mirrorScenario === true) {
@@ -407,12 +418,20 @@ abstract class ElementAccessor extends RecordAccessor
     /**
      * @param ElementInterface $element
      * @param bool $mirrorScenario
-     * @return RecordInterface|static
+     * @return ElementRecord|static
      */
     public function toRecord(ElementInterface $element, $mirrorScenario = true)
     {
 
-        $record = $this->createRecord();
+        $id = $element->id;
+
+        // Find a record
+        if ($id && (!$record = $this->findRecord($id))) {
+
+            // Create new record
+            $record = $this->createRecord();
+
+        }
 
         // Populate the record attributes
         $this->transferToRecord($element, $record, $mirrorScenario);
@@ -432,7 +451,15 @@ abstract class ElementAccessor extends RecordAccessor
      */
     public function findCache($identifier)
     {
+
+        if (is_numeric($identifier)) {
+
+            return $this->findCacheById($identifier);
+
+        }
+
         return null;
+
     }
 
     /**
@@ -441,7 +468,11 @@ abstract class ElementAccessor extends RecordAccessor
      */
     public function addToCache(ElementInterface $element)
     {
+
+        $this->cacheById($element);
+
         return $this;
+
     }
 
     /*******************************************
