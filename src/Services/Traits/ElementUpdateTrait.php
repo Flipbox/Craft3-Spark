@@ -12,6 +12,7 @@
 namespace Flipbox\Craft3\Spark\Services\Traits;
 
 use craft\app\events\Event as ElementEvent;
+use craft\app\base\ElementInterface as BaseElementInterface;
 use Flipbox\Craft3\Spark\Elements\Interfaces\ElementInterface;
 use Flipbox\Craft3\Spark\Exceptions\InsufficientPrivilegesException;
 use Flipbox\Craft3\Spark\Helpers\RecordHelper;
@@ -34,11 +35,11 @@ trait ElementUpdateTrait
     abstract protected function createEvent($config = []);
 
     /**
-     * @param ElementInterface $element
+     * @param BaseElementInterface $element
      * @param bool $mirrorScenario
      * @return RecordWithIdInterface
      */
-    abstract public function toRecord(ElementInterface $element, $mirrorScenario = true);
+    abstract public function toRecord(BaseElementInterface $element, $mirrorScenario = true);
 
     /**
      * @param ElementInterface $element

@@ -65,7 +65,7 @@ abstract class RecordAccessor extends BaseComponent
      * @param string $scenario
      * @return RecordInterface
      */
-    protected function createRecord($properties = [], $scenario = RecordHelper::SCENARIO_INSERT)
+    public function createRecord($properties = [], $scenario = RecordHelper::SCENARIO_INSERT)
     {
 
         // Create new model
