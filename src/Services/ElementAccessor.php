@@ -31,14 +31,9 @@ abstract class ElementAccessor extends RecordAccessor
     protected $_cacheAll;
 
     /**
-     * The record instance that this class interacts with
-     */
-    const RECORD_CLASS_INSTANCE = 'craft\app\db\ActiveRecord';
-
-    /**
      * The element instance that this class interacts with
      */
-    const ELEMENT_CLASS_INSTANCE = 'craft\app\base\ElementInterface';
+    const ELEMENT_CLASS_INSTANCE = 'Flipbox\Craft3\Spark\Elements\ElementInterface';
 
     /**
      * The default scenario

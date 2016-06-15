@@ -12,7 +12,7 @@
 namespace Flipbox\Craft3\Spark\Services\Traits;
 
 use craft\app\events\Event as ElementEvent;
-use Flipbox\Craft3\Spark\Elements\Interfaces\ElementInterface;
+use craft\app\base\ElementInterface;
 use Flipbox\Craft3\Spark\Exceptions\InsufficientPrivilegesException;
 use Flipbox\Craft3\Spark\Helpers\RecordHelper;
 use Flipbox\Craft3\Spark\Records\Interfaces\RecordWithIdInterface;
@@ -123,7 +123,7 @@ trait ElementDeleteTrait
             if ($event->isValid) {
 
                 // Delete record
-                if (\Craft::$app->getElements()->deleteElementById($element->getId())) {
+                if (\Craft::$app->getElements()->deleteElementById($element->id)) {
 
                     // The 'after' event
                     $this->onAfterDelete($event);
