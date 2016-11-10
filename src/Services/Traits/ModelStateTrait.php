@@ -11,6 +11,7 @@
 
 namespace Flipbox\Craft3\Spark\Services\Traits;
 
+use yii\base\Event as BaseEvent;
 use craft\app\events\Event as ModelEvent;
 use Flipbox\Craft3\Spark\Exceptions\InsufficientPrivilegesException;
 use Flipbox\Craft3\Spark\Helpers\RecordHelper;
@@ -47,10 +48,10 @@ trait ModelStateTrait
 
     /**
      * @param $name
-     * @param ModelEvent|null $event
+     * @param BaseEvent|null $event
      * @return mixed
      */
-    abstract public function trigger($name, ModelEvent $event = null);
+    abstract public function trigger($name, BaseEvent $event = null);
 
 
     /**
