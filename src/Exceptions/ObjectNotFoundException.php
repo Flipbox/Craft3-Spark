@@ -11,7 +11,7 @@
 
 namespace Flipbox\Craft3\Spark\Exceptions;
 
-use craft\app\errors\Exception;
+use craft\app\errors\ErrorException as Exception;
 
 class ObjectNotFoundException extends Exception
 {
