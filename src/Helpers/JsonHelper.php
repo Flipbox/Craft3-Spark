@@ -11,7 +11,7 @@
 
 namespace Flipbox\Craft3\Spark\Helpers;
 
-use craft\app\helpers\JsonHelper as BaseJsonHelper;
+use craft\app\helpers\Json as BaseJsonHelper;
 
 class JsonHelper extends BaseJsonHelper
 {
