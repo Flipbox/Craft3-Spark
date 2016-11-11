@@ -15,8 +15,8 @@ use yii\base\Event as BaseEvent;
 use craft\app\events\Event as ModelEvent;
 use Flipbox\Craft3\Spark\Exceptions\InsufficientPrivilegesException;
 use Flipbox\Craft3\Spark\Helpers\RecordHelper;
-use Flipbox\Craft3\Spark\Models\ModelWithIdHandleAndState;
-use Flipbox\Craft3\Spark\Records\RecordWithIdHandleAndState;
+use Flipbox\Craft3\Spark\Models\ModelWithIdAndState;
+use Flipbox\Craft3\Spark\Records\RecordWithIdAndState;
 
 trait ModelStateTrait
 {
@@ -63,7 +63,7 @@ trait ModelStateTrait
     /**
      * @param $condition
      * @param string $scenario
-     * @return RecordWithIdHandleAndState
+     * @return RecordWithIdAndState
      */
     abstract public function getRecord($condition, $scenario = RecordHelper::SCENARIO_SAVE);
 
@@ -72,19 +72,19 @@ trait ModelStateTrait
      *******************************************/
 
     /**
-     * @param ModelWithIdHandleAndState $model
+     * @param ModelWithIdAndState $model
      * @return bool
      */
-    public function hasEnablePermission(ModelWithIdHandleAndState $model)
+    public function hasEnablePermission(ModelWithIdAndState $model)
     {
         return true;
     }
 
     /**
-     * @param ModelWithIdHandleAndState $model
+     * @param ModelWithIdAndState $model
      * @return bool
      */
-    public function hasDisablePermission(ModelWithIdHandleAndState $model)
+    public function hasDisablePermission(ModelWithIdAndState $model)
     {
         return true;
     }
@@ -132,11 +132,11 @@ trait ModelStateTrait
      *******************************************/
 
     /**
-     * @param ModelWithIdHandleAndState $model
+     * @param ModelWithIdAndState $model
      * @return bool
      * @throws \Exception
      */
-    public function enable(ModelWithIdHandleAndState $model)
+    public function enable(ModelWithIdAndState $model)
     {
 
         // Check permission
@@ -151,12 +151,12 @@ trait ModelStateTrait
     }
 
     /**
-     * @param ModelWithIdHandleAndState $model
+     * @param ModelWithIdAndState $model
      * @return bool
      * @throws \CDbException
      * @throws \Exception
      */
-    protected function enableInternal(ModelWithIdHandleAndState $model)
+    protected function enableInternal(ModelWithIdAndState $model)
     {
 
         // Db transaction
@@ -238,11 +238,11 @@ trait ModelStateTrait
      *******************************************/
 
     /**
-     * @param ModelWithIdHandleAndState $model
+     * @param ModelWithIdAndState $model
      * @return bool
      * @throws \Exception
      */
-    public function disable(ModelWithIdHandleAndState $model)
+    public function disable(ModelWithIdAndState $model)
     {
 
         // Check permission
@@ -257,12 +257,12 @@ trait ModelStateTrait
     }
 
     /**
-     * @param ModelWithIdHandleAndState $model
+     * @param ModelWithIdAndState $model
      * @return bool
      * @throws \CDbException
      * @throws \Exception
      */
-    protected function disableInternal(ModelWithIdHandleAndState $model)
+    protected function disableInternal(ModelWithIdAndState $model)
     {
 
         // Db transaction
