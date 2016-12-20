@@ -17,11 +17,6 @@ trait ElementWithIdTrait
 {
 
     /**
-     * @var integer ID
-     */
-    public $id;
-
-    /**
      * @inheritdoc
      */
     public function getId()
