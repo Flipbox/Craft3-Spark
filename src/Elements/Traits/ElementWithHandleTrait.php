@@ -47,15 +47,7 @@ trait ElementWithHandleTrait
         return [
             [
                 ['handle'],
-                'craft\\app\\validators\\Handle',
-                'reservedWords' => [
-                    'id',
-                    'uid',
-                ]
-            ],
-            [
-                ['handle'],
-                'unique'
+                'craft\\app\\validators\\Handle'
             ],
             [
                 ['handle'],
