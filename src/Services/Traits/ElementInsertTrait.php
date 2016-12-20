@@ -187,6 +187,9 @@ trait ElementInsertTrait
                     // Save element (and content fields)
                     if (\Craft::$app->getElements()->saveElement($element, false)) {
 
+                        // Transfer id to the new records
+                        $record->id = $element->getId();
+                        
                         // Insert record
                         if (false !== $record->insert(false, $attributes)) {
 
