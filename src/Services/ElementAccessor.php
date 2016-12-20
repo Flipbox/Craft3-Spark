@@ -108,12 +108,7 @@ abstract class ElementAccessor extends RecordAccessor
         // Check cache
         if (is_null($this->_cacheAll)) {
 
-            /** @var ElementInterface $elementClass */
-            $elementClass = $this->element;
-
-            $this->_cacheAll = $this->findAllByCriteria([
-                'type' => $elementClass::className()
-            ], null, $scenario);
+            $this->_cacheAll = $this->findAllByCriteria([], null, $scenario);
 
         } else {
 
