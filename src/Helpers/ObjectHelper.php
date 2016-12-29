@@ -70,7 +70,14 @@ class ObjectHelper
         $class = static::checkConfig($config, $instanceOf);
 
         // New object
-        return new $class($config);
+        $object = new $class();
+
+        // Configure
+        if($config) {
+            static::configure($object, $config);
+        }
+
+        return $object;
 
     }
 
