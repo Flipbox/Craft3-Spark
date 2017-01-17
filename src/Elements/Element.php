@@ -14,7 +14,7 @@ namespace Flipbox\Craft3\Spark\Elements;
 use craft\app\base\Element as BaseElement;
 use Flipbox\Craft3\Spark\Helpers\ElementHelper;
 
-abstract class Element extends BaseElement implements Interfaces\ElementWithIdInterface
+abstract class Element extends BaseElement implements Interfaces\ElementInterface
 {
 
     use Traits\ElementWithIdTrait {
